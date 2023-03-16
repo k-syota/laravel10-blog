@@ -46,19 +46,23 @@ class PostResource extends Resource
                         ->required()
                         ->maxLength(2048),
                     ]),
-                FileUpload::make('thumbnail'),
                 Forms\Components\RichEditor::make('body')
                     ->required(),
                 Forms\Components\Toggle::make('active')
                     ->required(),
                 Forms\Components\DateTimePicker::make('published_at')
                     ->required(),
-                Forms\Components\Select::make('category_id')
+                ])->columnSpan(8),
+                Card::make()
+                ->schema([
+                    FileUpload::make('thumbnail'),
+                    Forms\Components\Select::make('category_id')
                     ->multiple()
                     ->relationship('categories', 'title')
                     ->required(),
                 ])
-            ]);
+                ->columnSpan(4)
+            ])->columns(12);
     }
 
     public static function table(Table $table): Table
