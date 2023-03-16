@@ -7,6 +7,9 @@ use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -28,27 +31,33 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(2048)
-                    ->reactive()
-                    ->afterStateUpdated(function(Closure $set, $state){
-                        $set('slug', Str::slug($state));
-                    }),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(2048),
-                Forms\Components\TextInput::make('thumbnail')
-                    ->maxLength(2048),
-                Forms\Components\Textarea::make('body')
+                Card::make()
+                ->schema([
+                    Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                        ->required()
+                        ->maxLength(2048)
+                        ->reactive()
+                        ->afterStateUpdated(function(Closure $set, $state){
+                            $set('slug', Str::slug($state));
+                        }),
+                    Forms\Components\TextInput::make('slug')
+                        ->required()
+                        ->maxLength(2048),
+                    ]),
+                FileUpload::make('thumbnail'),
+                Forms\Components\RichEditor::make('body')
                     ->required(),
                 Forms\Components\Toggle::make('active')
                     ->required(),
                 Forms\Components\DateTimePicker::make('published_at')
                     ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                Forms\Components\Select::make('category_id')
+                    ->multiple()
+                    ->relationship('categories', 'title')
                     ->required(),
+                ])
             ]);
     }
 
