@@ -11,4 +11,6 @@
         {{ $posts->onEachSide(1)->links() }}
 
     </section>
+
+    <x-sidebar />
 </x-app-layout>
