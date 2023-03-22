@@ -6,6 +6,7 @@ use App\Filament\Resources\TextWidgetResource\Pages;
 use App\Filament\Resources\TextWidgetResource\RelationManagers;
 use App\Models\TextWidget;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -19,6 +20,8 @@ class TextWidgetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'Content';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -26,15 +29,14 @@ class TextWidgetResource extends Resource
                 Forms\Components\TextInput::make('key')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('image')
-                    ->maxLength(2048),
+                FileUpload::make('image'),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(2048),
                 Forms\Components\Textarea::make('content'),
                 Forms\Components\Toggle::make('active')
                     ->required(),
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -44,11 +46,8 @@ class TextWidgetResource extends Resource
                 Tables\Columns\TextColumn::make('key'),
                 Tables\Columns\TextColumn::make('image'),
                 Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('content'),
                 Tables\Columns\IconColumn::make('active')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])
@@ -56,28 +55,26 @@ class TextWidgetResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListTextWidgets::route('/'),
             'create' => Pages\CreateTextWidget::route('/create'),
-            'view' => Pages\ViewTextWidget::route('/{record}'),
             'edit' => Pages\EditTextWidget::route('/{record}/edit'),
         ];
-    }    
+    }
 }
