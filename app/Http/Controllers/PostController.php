@@ -47,7 +47,7 @@ class PostController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return view('show', compact('post'));
+        return view('post.view', compact('post'));
     }
 
     /**
