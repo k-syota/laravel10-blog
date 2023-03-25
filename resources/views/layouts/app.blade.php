@@ -53,7 +53,7 @@
                 @foreach ($categories as $category)
                     <a href="{{ route('by-category', $category) }}" class="hover:bg-blue-400 hover:text-white rounded py-2 px-4 mx-2">{{ $category->title }}</a>
                 @endforeach
-                <a href="#" class="hover:bg-blue-400 hover:text-white rounded py-2 px-4 mx-2">About us</a>
+                <a href="{{ route('about') }}" class="hover:bg-blue-400 hover:text-white rounded py-2 px-4 mx-2">About us</a>
             </div>
         </div>
     </nav>
