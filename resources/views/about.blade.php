@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout meta-title="TheCodeholic's blog - About us Page" meta-description="lorem ipsum">
         <!-- Post Section -->
         <section class="w-full flex flex-col items-center px-3">
 

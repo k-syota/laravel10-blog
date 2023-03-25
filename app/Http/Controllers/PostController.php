@@ -77,7 +77,7 @@ class PostController extends Controller
         ->orderByDesc('published_at')
         ->paginate(10);
 
-        return view('home', compact('posts', 'category'));
+        return view('post.index', compact('posts', 'category'));
     }
 
     /**
