@@ -6,7 +6,7 @@
             @foreach ($categories as $category)
                 <a href="{{ route('by-category', $category) }}"
                     class="font-semibold block py-2 px-3 rounded
-                    {{ request('category')->slug == $category->slug ? 'bg-blue-600 text-white' : '' }}">
+                    {{ request('category')?->slug == $category->slug ? 'bg-blue-600 text-white' : '' }}">
                     {{ $category->title }}({{ $category->total }})
                 </a>
             @endforeach
